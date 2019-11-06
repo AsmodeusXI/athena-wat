@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getUsers, deleteUser } from "./api/userApi";
 
 function App() {
   // STATE! If it renders, redraw the state!
-  const [users, setUsers] = useState([
-    { id: 1, name: "Sam", email: "s@l.com" },
-    { id: 2, name: "Akito", email: "a@f.com" },
-    { id: 3, name: "Hannah", email: "h@c.com" }
-  ]);
+  const [users, setUsers] = useState([]);
+
+  // useEffect - Used after the component is rendered (every time)
+  // "runs by default after every render"
+  // deps: a list of reasons that useEffect would run again
+  //    runs once at the beginning, but no more if deps: []
+  useEffect(() => {
+    // any data that when it changes we want to rerun.
+    getUsers().then(_users => setUsers(_users));
+  }, []);
 
   const h1Style = {
     color: "green",
@@ -15,7 +21,9 @@ function App() {
 
   function handleDelete(id) {
     // Update state so we know to re-render!
-    setUsers(users.filter(user => user.id !== id));
+    deleteUser(id).then(() => {
+      setUsers(users.filter(user => user.id !== id));
+    });
     // State doesn't update YET; it's queued.
     // setState batches state updates for performance reasons.
   }
@@ -32,8 +40,8 @@ function App() {
           </li>
         ))}
       </ul>
-      <label htmlFor="testinput">First Name</label>
-      <input id="testinput"></input>
+      <label htmlFor="firstname">First Name</label>
+      <input id="firstname"></input>
       <p style={h1Style}>These are the basics.</p>
     </>
   );
