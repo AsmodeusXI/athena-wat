@@ -4,6 +4,10 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
 
+// Router passes 3 props automatically: match, location, and history
+// Match - info on matched URL
+// Location - info on the current URL
+// History - programmatically change URL
 ReactDOM.render(
   <Router>
     <App />

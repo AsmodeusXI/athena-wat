@@ -11,7 +11,8 @@ function App() {
       <Nav />
       <Route path="/" component={Home} exact />
       <Route path="/users" component={Users} />
-      <Route path="/user" component={ManageUser} />
+      {/* Route placeholder that is optional; no need for repetition! */}
+      <Route path="/user/:userId?" component={ManageUser} />
     </>
   );
 }

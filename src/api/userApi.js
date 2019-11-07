@@ -12,6 +12,12 @@ export function getUsers() {
   return fetch(userUrl).then(createStandardResponse("GET was not OK"));
 }
 
+export function getUser(userId) {
+  return fetch(`${userUrl}/${userId}`).then(
+    createStandardResponse(`Could not get the User with Id: ${userId}`)
+  );
+}
+
 export function deleteUser(id) {
   return fetch(`${userUrl}/${id}`, { method: "DELETE" }).then(
     createStandardResponse("DELETE was not OK")
