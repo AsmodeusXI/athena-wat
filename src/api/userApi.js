@@ -18,8 +18,20 @@ export function deleteUser(id) {
   );
 }
 
-export function postUser(body) {
-  return fetch(`${userUrl}`, { method: "POST" }).then(
-    createStandardResponse("Failed to POST new user")
-  );
+export function postUser(user) {
+  return fetch(`${userUrl}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user)
+  }).then(createStandardResponse("POST was not OK"));
+}
+
+export async function putUser(user) {
+  const putResponse = await fetch(`${userUrl}/${user.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user)
+  });
+  if (putResponse.ok) return putResponse.json();
+  throw new Error("PUT failed!");
 }
