@@ -17,3 +17,9 @@ export function deleteUser(id) {
     createStandardResponse("DELETE was not OK")
   );
 }
+
+export function postUser(body) {
+  return fetch(`${userUrl}`, { method: "POST" }).then(
+    createStandardResponse("Failed to POST new user")
+  );
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getUsers, deleteUser } from "./api/userApi";
+import { Link } from "react-router-dom";
 
 function Users() {
   // STATE! If it renders, redraw the state!
@@ -29,7 +30,10 @@ function Users() {
     <>
       {/* JSX style objects (like CSS, but with Camel-Case in an object) */}
       <h1 style={{ size: "30em", color: "red" }}>Users</h1>
-      <table className="table">
+      <Link to="/user">
+        <button className="button">Add User</button>
+      </Link>
+      <table className="table" style={{ marginTop: "20px" }}>
         <thead>
           <tr>
             {headers.map(header => (
