@@ -1,11 +1,14 @@
-import React from 'react'; // if you omit a filepath, it looks in node_modules
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css'; // COOL.
+import React from "react"; // if you omit a filepath, it looks in node_modules
+import ReactDOM from "react-dom";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
-    <App />, // JSX that's compiled down by Babel to React.createElement (which needs a single element)
-    document.getElementById('root'),
+  <Router>
+    <App />
+  </Router>, // JSX that's compiled down by Babel to React.createElement (which needs a single element)
+  document.getElementById("root")
 );
 
 // const element = React.createElement(

@@ -1,16 +1,19 @@
 // API Proxy
 const userUrl = "http://localhost:3001/users";
 
-export function getUsers() {
-  return fetch(userUrl).then(res => {
+function createStandardResponse(errorStmt) {
+  return function(res) {
     if (res.ok) return res.json();
-    throw new Error("Response was not okay!");
-  });
+    throw new Error(errorStmt);
+  };
+}
+
+export function getUsers() {
+  return fetch(userUrl).then(createStandardResponse("GET was not OK"));
 }
 
 export function deleteUser(id) {
-  return fetch(`${userUrl}/${id}`, { method: "DELETE" }).then(res => {
-    if (res.ok) return res.json();
-    throw new Error("Delete failed!");
-  });
+  return fetch(`${userUrl}/${id}`, { method: "DELETE" }).then(
+    createStandardResponse("DELETE was not OK")
+  );
 }

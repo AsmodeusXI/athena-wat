@@ -5,3 +5,9 @@
 button {
   margin-right: 20px;
 }
+
+th,
+td,
+tr {
+  margin: 15px;
+}

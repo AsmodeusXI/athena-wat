@@ -2,8 +2,13 @@
   "users": [
     {
       "id": 2,
-      "name": "Akito",
-      "email": "a@f.com"
+      "name": "Abby",
+      "email": "test@place.com"
+    },
+    {
+      "id": 3,
+      "name": "Person",
+      "email": "notarobot@sky.net"
     }
   ]
 }
