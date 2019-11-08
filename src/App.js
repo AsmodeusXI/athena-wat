@@ -6,10 +6,12 @@ import ManageUser from "./ManageUser";
 import { getUsers, deleteUser } from "./api/userApi";
 import { Route } from "react-router-dom";
 import PageNotFound from "./PageNotFound";
+import InternationalizationContext from "./InternationalizationContext";
 
 function App() {
   // STATE! If it renders, redraw the state!
   const [users, setUsers] = useState([]);
+  const [language, setLanguage] = useState("English");
 
   // useEffect - Used after the component is rendered (every time)
   // "runs by default after every render"
@@ -38,7 +40,8 @@ function App() {
   }
 
   return (
-    <>
+    // Object shorthand syntax
+    <InternationalizationContext.Provider value={{ language, setLanguage }}>
       <Nav />
       <Route path="/" component={Home} exact />
       <Route
@@ -57,7 +60,7 @@ function App() {
         }}
       />
       <Route path="/notfound" component={PageNotFound} />
-    </>
+    </InternationalizationContext.Provider>
   );
 }
 
