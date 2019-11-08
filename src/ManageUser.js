@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 import { Redirect, useRouteMatch } from "react-router-dom";
+import PropTypes from "prop-types";
 import Input from "./Input";
 import { putUser, postUser } from "./api/userApi";
 
 // ANY function at the root of a File with React imported is
 // a React component!
 function ManageUser(props) {
-  const { users, submitUser } = props;
+  const { users, addUser, editUser } = props;
   // Hooks always start with the word "use" and can only be called in a React component.
   // Contains info about the matching URL.
   const match = useRouteMatch();
@@ -18,18 +18,18 @@ function ManageUser(props) {
     email: ""
   });
   const [isSaved, setIsSaved] = React.useState(false);
+  const [isNotFound, setIsNotFound] = React.useState(false);
 
   useEffect(() => {
-    if (userId) {
-      const editUser = users.find(user => user.id === parseInt(userId));
-      setUser(editUser);
+    if (userId && users.length > 0) {
+      const userToEdit = users.find(user => user.id === parseInt(userId, 10));
+      userToEdit ? setUser(userToEdit) : setIsNotFound(true);
     }
-  }, [userId, users]); // If userId changes, we definitely want to re-render.
+  }, [userId, users]); // If userId OR users changes, we definitely want to re-render.
 
   async function handleSubmit(event) {
     event.preventDefault(); // Stop browser from posting back.
-    const savedUser = userId ? await putUser(user) : await postUser(user);
-    submitUser(savedUser);
+    userId ? editUser(await putUser(user)) : addUser(await postUser(user));
     setIsSaved(true);
   }
 
@@ -45,6 +45,7 @@ function ManageUser(props) {
       {/* Logical AND operator! If LHS is truthy, run RHS */}
       {/* Ternaries or external functions are also valid */}
       {isSaved && <Redirect to="/users" />}
+      {isNotFound && <Redirect to="/notfound" />}
       <h1>Add User</h1>
       <form onSubmit={handleSubmit}>
         <Input
@@ -69,7 +70,8 @@ function ManageUser(props) {
 
 ManageUser.propTypes = {
   users: PropTypes.array.isRequired,
-  submitUser: PropTypes.func.isRequired
+  addUser: PropTypes.func.isRequired,
+  editUser: PropTypes.func.isRequired
 };
 
 export default ManageUser;

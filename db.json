@@ -6,12 +6,12 @@
       "id": 4
     },
     {
-      "name": "Dave",
+      "name": "Dave but Better",
       "email": "d@dave.com",
       "id": 5
     },
     {
-      "name": "another test",
+      "name": "Another Test",
       "email": "A@test.com",
       "id": 6
     },
@@ -29,6 +29,26 @@
       "name": "Test It",
       "email": "another@email.com",
       "id": 9
+    },
+    {
+      "name": "Code Golf",
+      "email": "c@golf.com",
+      "id": 10
+    },
+    {
+      "name": "New One",
+      "email": "n@o.com",
+      "id": 11
+    },
+    {
+      "name": "Test a User",
+      "email": "newemail@test.com",
+      "id": 12
+    },
+    {
+      "name": "test",
+      "email": "test@test.com",
+      "id": 13
     }
   ]
 }

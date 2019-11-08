@@ -26,11 +26,14 @@ function Users(props) {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>
-                <button onClick={event => handleDelete(user.id)}>
+                <button
+                  aria-label={`Delete User ${user.name}`}
+                  onClick={event => handleDelete(user.id)}
+                >
                   Delete!
                 </button>
                 <Link to={`/user/${user.id}`}>
-                  <button>
+                  <button aria-label={`Edit User ${user.name}`}>
                     Edit!{" "}
                     <span aria-label="athena pencil" role="img">
                       ✏️

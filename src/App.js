@@ -5,6 +5,7 @@ import Nav from "./Nav";
 import ManageUser from "./ManageUser";
 import { getUsers, deleteUser } from "./api/userApi";
 import { Route } from "react-router-dom";
+import PageNotFound from "./PageNotFound";
 
 function App() {
   // STATE! If it renders, redraw the state!
@@ -28,9 +29,12 @@ function App() {
     // setState batches state updates for performance reasons.
   }
 
-  function submitUser(savedUser) {
-    const reducedUsers = users.filter(user => user.id !== savedUser.id);
-    setUsers([...reducedUsers, savedUser]);
+  function addUser(savedUser) {
+    setUsers([...users, savedUser]);
+  }
+
+  function editUser(savedUser) {
+    setUsers(users.map(user => (user.id === savedUser.id ? savedUser : user)));
   }
 
   return (
@@ -47,9 +51,12 @@ function App() {
       <Route
         path="/user/:userId?"
         render={reactRouterProps => {
-          return <ManageUser users={users} submitUser={submitUser} />;
+          return (
+            <ManageUser users={users} addUser={addUser} editUser={editUser} />
+          );
         }}
       />
+      <Route path="/notfound" component={PageNotFound} />
     </>
   );
 }
