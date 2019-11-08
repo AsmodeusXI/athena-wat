@@ -14,9 +14,6 @@ function Nav() {
       <NavLink to="/users" activeStyle={activeStyle}>
         Users
       </NavLink>
-      <NavLink to="/user" activeStyle={activeStyle}>
-        Manage User
-      </NavLink>
     </nav>
   );
 }

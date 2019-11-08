@@ -1,18 +1,8 @@
 {
   "users": [
     {
-      "id": 2,
-      "name": "New Abby",
-      "email": "test@place.com"
-    },
-    {
-      "id": 3,
-      "name": "Definitely a Person",
-      "email": "notarobot@sky.net"
-    },
-    {
-      "name": "test",
-      "email": "t@t",
+      "name": "Sam Name",
+      "email": "new@test.com",
       "id": 4
     },
     {
@@ -24,6 +14,21 @@
       "name": "another test",
       "email": "A@test.com",
       "id": 6
+    },
+    {
+      "name": "Hi THere",
+      "email": "test@test.com",
+      "id": 7
+    },
+    {
+      "name": "TEST USER!",
+      "email": "t@test.com",
+      "id": 8
+    },
+    {
+      "name": "Test It",
+      "email": "another@email.com",
+      "id": 9
     }
   ]
 }

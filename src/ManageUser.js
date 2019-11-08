@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { postUser, getUser, putUser } from "./api/userApi";
+import PropTypes from "prop-types";
 import { Redirect, useRouteMatch } from "react-router-dom";
 import Input from "./Input";
+import { putUser, postUser } from "./api/userApi";
 
 // ANY function at the root of a File with React imported is
 // a React component!
-function ManageUser() {
+function ManageUser(props) {
+  const { users, submitUser } = props;
   // Hooks always start with the word "use" and can only be called in a React component.
   // Contains info about the matching URL.
   const match = useRouteMatch();
@@ -19,15 +21,15 @@ function ManageUser() {
 
   useEffect(() => {
     if (userId) {
-      getUser(userId).then(existingUser => {
-        setUser(existingUser);
-      });
+      const editUser = users.find(user => user.id === parseInt(userId));
+      setUser(editUser);
     }
-  }, [userId]); // If userId changes, we definitely want to re-render.
+  }, [userId, users]); // If userId changes, we definitely want to re-render.
 
   async function handleSubmit(event) {
     event.preventDefault(); // Stop browser from posting back.
-    userId ? await putUser(user) : await postUser(user);
+    const savedUser = userId ? await putUser(user) : await postUser(user);
+    submitUser(savedUser);
     setIsSaved(true);
   }
 
@@ -59,10 +61,15 @@ function ManageUser() {
           value={user.email}
         />
         {/* Don't use onClick for form submit because keyboard users won't click. */}
-        <input type="submit" value="Add User" />
+        <input type="submit" value={userId ? "Edit User" : "Add User"} />
       </form>
     </>
   );
 }
+
+ManageUser.propTypes = {
+  users: PropTypes.array.isRequired,
+  submitUser: PropTypes.func.isRequired
+};
 
 export default ManageUser;

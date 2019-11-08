@@ -1,31 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { getUsers, deleteUser } from "./api/userApi";
+import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-function Users() {
-  // STATE! If it renders, redraw the state!
-  const [users, setUsers] = useState([]);
-
-  // useEffect - Used after the component is rendered (every time)
-  // "runs by default after every render"
-  // deps: a list of reasons that useEffect would run again
-  //    runs once at the beginning, but no more if deps: []
-  useEffect(() => {
-    // any data that when it changes we want to rerun.
-    getUsers().then(_users => setUsers(_users));
-  }, []);
-
-  const headers = ["ID", "Name", "Email", "Action"];
-
-  function handleDelete(userId) {
-    // Update state so we know to re-render!
-    deleteUser(userId).then(() => {
-      setUsers(users.filter(user => user.id !== userId));
-    });
-    // State doesn't update YET; it's queued.
-    // setState batches state updates for performance reasons.
-  }
-
+function Users(props) {
+  const { users, handleDelete } = props;
   return (
     <>
       {/* JSX style objects (like CSS, but with Camel-Case in an object) */}
@@ -36,7 +14,7 @@ function Users() {
       <table className="table" style={{ marginTop: "20px" }}>
         <thead>
           <tr>
-            {headers.map(header => (
+            {["ID", "Name", "Email", "Action"].map(header => (
               <th key={header}>{header}</th>
             ))}
           </tr>
@@ -73,10 +51,13 @@ function Users() {
           </li>
         ))}
         </ul> */}
-      <label htmlFor="firstname">First Name</label>
-      <input id="firstname"></input>
     </>
   );
 }
+
+Users.propTypes = {
+  users: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired
+};
 
 export default Users;
